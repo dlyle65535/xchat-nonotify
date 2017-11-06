@@ -1,5 +1,5 @@
 import xchat
-
+import re
 __module_name__ = 'No Notify'
 __module_version__ = '1'
 __module_description__ = 'Eat Notifcations'
@@ -24,7 +24,7 @@ def nonotify_callback(word, word_eol, user_data):
 
 def remove_nonotify(word,word_eol,userdata):
     if len(word) > 2 and word[2] in channel_list:
-        xchat.prnt('%sNoNotify - Removing %s from no notify channel list.' % (green, word[2]))
+        xchat.prnt('%sNoNotify - Removing %s from NoNotify channel list.' % (green, word[2]))
         channel_list.remove(word[2])
     else:
         xchat.prnt('%sNoNotify - Not removing %s - not in list.' % (green, word[2]))
@@ -35,11 +35,13 @@ def nonotify(word,word_eol,userdata):
         return show_nonotify(word,word_eol,userdata)
     if word[1] == 'remove':
         return remove_nonotify(word,word_eol,userdata)
-    if word[1] not in channel_list:
-        xchat.prnt('%sNoNotify - Adding %s to no notify channel list.' % (green, word[1]))
-        channel_list.append(word[1])
-    else:
-        xchat.prnt('%sNoNotify -  Not adding %s, already in no notify channel list.' % (green,word[1]))
+    channels = re.split('(?:,|\s)+',word_eol[1])
+    for channel in channels:
+        if channel not in channel_list:
+           xchat.prnt('%sNoNotify - Adding %s to NoNotify channel list.' % (green, word[1]))
+           channel_list.append(word[1])
+        else:
+           xchat.prnt('%sNoNotify -  Not adding %s, already in NoNotify channel list.' % (green,word[1]))
 
 
 def show_nonotify(word,word_eol,userdata):
@@ -56,3 +58,4 @@ xchat.hook_command('nonotify', nonotify)
 xchat.hook_unload(on_unload)
 
 xchat.prnt('%sModule No Notify Loaded.' % green)
+
