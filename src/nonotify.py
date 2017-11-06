@@ -38,10 +38,10 @@ def nonotify(word,word_eol,userdata):
     channels = re.split('(?:,|\s)+',word_eol[1])
     for channel in channels:
         if channel not in channel_list:
-           xchat.prnt('%sNoNotify - Adding %s to NoNotify channel list.' % (green, word[1]))
-           channel_list.append(word[1])
+           xchat.prnt('%sNoNotify - Adding %s to NoNotify channel list.' % (green, channel))
+           channel_list.append(channel)
         else:
-           xchat.prnt('%sNoNotify -  Not adding %s, already in NoNotify channel list.' % (green,word[1]))
+           xchat.prnt('%sNoNotify -  Not adding %s, already in NoNotify channel list.' % (green,channel))
 
 
 def show_nonotify(word,word_eol,userdata):
