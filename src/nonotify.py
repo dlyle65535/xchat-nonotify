@@ -16,7 +16,7 @@ def on_unload(userdata):
 
 def nonotify_callback(word, word_eol, userdata):
     if xchat.get_info("channel") in channel_list:
-        xchat.emit_print('Channel Message','%s%s' % (red, word[0]),'%s%s' % (red,word[1]))
+        xchat.emit_print('Channel Message','%s%s' % (red, word[0]),'%sNotification Suppressed: %s%s' % (green,red,word[1]))
         return xchat.EAT_ALL
     else:
         return xchat.EAT_NONE
