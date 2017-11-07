@@ -14,7 +14,7 @@ def on_unload(userdata):
     xchat.prnt('%s%s has been unloaded.' % (green, __module_name__))
 
 
-def nonotify_callback(word):
+def nonotify_callback(word, word_eol, userdata):
     if xchat.get_info("channel") in channel_list:
         xchat.emit_print('Channel Message','%s%s' % (red, word[0]),'%s%s' % (red,word[1]))
         return xchat.EAT_ALL
